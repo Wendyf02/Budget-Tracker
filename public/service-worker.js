@@ -1,19 +1,11 @@
 const FILES_TO_CACHE = [
     "/",
-    "/detail",
-    "/favorites",
-    "/manifest.json",
-    "/favicon.ico",
-    "/assets/css/style.css",
-  
-    // update to cache multiple bundles
-    "/dist/bundle.js",
-  
-    "https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/materia/bootstrap.css",
-    "https://use.fontawesome.com/releases/v5.8.2/css/all.css",
-    "/assets/images/1.jpg",
-    "/assets/images/2.jpg",
-    "/assets/images/3.jpg",
+    "/db.js",
+    "/index.js",
+    "/manifest.webmanifest",
+    "/style.css",
+    "/icons/icon-192x192.png",
+    "/icons/icon-512x512.png"
   
   
   ];
@@ -21,13 +13,15 @@ const FILES_TO_CACHE = [
   const STATIC_CACHE = "static-cache-v1";
   const RUNTIME_CACHE = "runtime-cache";
   
-  self.addEventListener("install", event => {
-    event.waitUntil(
-      caches
-        .open(STATIC_CACHE)
-        .then(cache => cache.addAll(FILES_TO_CACHE))
-        .then(() => self.skipWaiting())
+  //install
+  self.addEventListener("install", function(evt){
+      evt.waitUntil(
+        catches.open(CACHE_NAME).then(cache => {
+        console.log("Your files were pre-cached succeefully!");
+        return cache.addAll(FILES_TO_CACHE);
+        })
     );
+    self.skipWaiting();
   });
   
   // The activate handler takes care of cleaning up old caches.
