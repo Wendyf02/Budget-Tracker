@@ -42,20 +42,19 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
   <script src="index.js"></script>
-  <script type="text/javascript">
-    (function() {
-      if("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./service-worker.js", {
-          scope: "/"
-        })
-          .then((res) => {
-            console.log(res);
-            console.log("Service Worker registered successfully.");
-          })
-          .catch(error => console.log("Service Worker registration failed:", error));
-      }
-    })();
+
+   <!--Extra code to make db.js and serviceWorker function-->
+  <script src="/db.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js").then (reg => {
+          console.log ("We found your service worker file!", reg);
+        });
+      });
+    }
   </script>
 </body>
 </html>
