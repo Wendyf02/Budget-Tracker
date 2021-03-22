@@ -30,64 +30,59 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
 event.waitUntil(
 catches.key()
-.then(keyList => {
+  .then(keyList => {
     // return array of cache names that are old to delete
-      return Promise
-       .all(keyList.map(key => {
+    return Promise
+    .all(keyList.map(key => {
        if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
-       console.log("Deleting previous cached information", key);
-       return caches.delete(key);
+         console.log("Deleting previous cached information", key);
+         return caches.delete(key);
        }
       })
-    )
+    );
   })     
   )  
   .then(() => self.clients.claim()) 
-  });
+});
 
   // fetch
   self.addEventListener("fetch", event => {
-  // non GET requests are not cached and requests to other origins are not cached
-  if (event.request.method !== "GET" ||
-    !event.request.url.startsWith(self.location.origin)
-  ) {
-    event.respondWith(fetch(event.request));
-    return;
-  }
-
   // handle runtime GET requests for data from /api routes
-  if (event.request.url.includes("/api/images")) {
+  if (event.request.url.includes("/api/")) {
     // make network request and fallback to cache if network request fails (offline)
     event.respondWith(
-      caches.open(RUNTIME_CACHE).then(cache => {
+      caches.open(DATA__CACHE_NAME).then(cache => {
         return fetch(event.request)
           .then(response => {
-            cache.put(event.request, response.clone());
+            
+            if (response.status === 200) {
+                cache.put(event.request.url, repsonse.clone());
+            }
             return response;
-          })
-          .catch(() => caches.match(event.request));
+
+          }
+          )
+          .catch(err => {
+          // use cache first for all other requests for performance
+            return cache.match(event.request);
+          });
       })
+      .catch(err => console.log(err))
     );
     return;
   }
 
 
-  
-  // use cache first for all other requests for performance
-  event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
 
-      // request is not in cache. make network request and cache the response
-      return caches.open(RUNTIME_CACHE).then(cache => {
-        return fetch(event.request).then(response => {
-          return cache.put(event.request, response.clone()).then(() => {
-            return response;
-          });
-        });
-      });
+  // request is not in cache. make network request and cache the response
+  event.respondWith(
+    caches
+    .open(CACHE_NAME)
+    .then(cache=> {
+         return cache.match(event.request)
+         .then(response => {
+            return response || fetch(event.request);
+         });  
     })
   );
 });
