@@ -13,6 +13,7 @@ const FILES_TO_CACHE = [
   
   const CACHE_NAME = "static-cache-v2";
   const DATA_CACHE_NAME = "data-cache-v1";
+  
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -23,13 +24,13 @@ self.addEventListener("install", event => {
         return cache.addAll(FILES_TO_CACHE);
       })
   )
-   .then(() => self.skipWaiting())
+  .then(() => self.skipWaiting())
 });
 
 // The activate handler takes care of cleaning up old caches.
 self.addEventListener("activate", event => {
 event.waitUntil(
-catches.key()
+caches.key()
   .then(keyList => {
     // return array of cache names that are old to delete
     return Promise
@@ -49,6 +50,7 @@ catches.key()
   self.addEventListener("fetch", event => {
   // handle runtime GET requests for data from /api routes
   if (event.request.url.includes("/api/")) {
+   
     // make network request and fallback to cache if network request fails (offline)
     event.respondWith(
       caches.open(DATA__CACHE_NAME).then(cache => {
