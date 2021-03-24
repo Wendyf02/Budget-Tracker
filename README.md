@@ -9,14 +9,20 @@
   * [Questions](#questions)
   
   ## Description
-        
+       
 
 
   ## Installation
-    
+  AS AN avid traveller I WANT to be able to track my withdrawals and     
+  deposits with or without a data/internet connection.    
+  SO THAT my account balance is accurate when I am traveling     
 
   ## Usage
      
+ * Enter the name and amount for your transaction.   cahrt
+ * Select whether you are adding or subtracting funds, via the buttons on the right of the form div.
+ * Analyze the graph to see the budget data.
+ * Extra: Open Dev Tools and navigate to the Network and Application tabs to see the insight of your data being called. Additionally, you can set your Network and service worker to offline to see the appliction working without internet access.
 
   ## Lincense
   ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
@@ -25,15 +31,16 @@
   n/a
 
   ## Test
-   Open in localhost:3004 and also run node seed.js and final deplay to heroku.        
+   Open in localhost:3004 and also run node server.js and final deplay to heroku.        
   
   ## Questions
 
   Contact me:   
-  Github: https://github.com/wendyf02       
+  Github: https://github.com/Wendyf02/Budget-Tracker          
   Email: cammomila444@gmail.com          
-  Heroku Deploy:   
+  Heroku Deploy:https://radiant-mountain-36273.herokuapp.com/
 
-  ![GitHub](public/images/workout1.png)  
+  ![GitHub](public/images/chart1.png)     
+  ![GitHub](public/images/chart2.png)    
 
   
