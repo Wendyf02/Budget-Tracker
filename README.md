@@ -39,7 +39,8 @@
   n/a
 
   ## Test
-   Open in localhost:3004 and also run node server.js and final deplay to heroku.        
+   Open in localhost:3004 and also run node server.js and final deplay to heroku.  
+   Test on http://localhost:3004/      
   
   ## Questions
 
